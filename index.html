@@ -1,19 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <!-- git push -u origin main -->
-    <!-- git commit -m "." -->
-    <!-- git commit -m "." -->
-</head>
-<body>
-    <h1>다겜천 (다예게임천국)</h1>
-    <ul>
-        <li><a href="chosungGame.html">초성게임</a></li>
-        <li><a href="rspGame.html">가위바위보</a></li>
-        <li><a href="textGame.html">타자게임</a></li>
-    </ul>
-</body>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+        <!-- 깃 업데이트 하는 방법 -->
+        <!--  git add . -->
+        <!-- git commit -m "." -->
+        <!-- git push -->
+    </head>
+    <style>
+        @font-face {
+            font-family: "DNFBitBitv2";
+            font-style: normal;
+            font-weight: 400;
+            src: url("//cdn.df.nexon.com/img/common/font/DNFBitBitv2.otf") format("opentype");
+        }
+        img {
+            display: block;
+        }
+        a {
+            text-decoration: none;
+            color: black;
+        }
+        body {
+            background-color: #333;
+            color: #fff;
+            font-family: "DNFBitBitv2";
+        }
+        h1 {
+            margin-top: 50px;
+            margin-bottom: 30px;
+            font-size: 40px;
+            -webkit-text-stroke: 1px black;
+            text-align: center;
+            text-transform: capitalize;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            max-width: 1000px;
+            width: 90%;
+            margin: 0 auto;
+            gap: 3rem;
+        }
+        .item {
+            background-color: #fff;
+            padding: 1.5rem;
+            box-sizing: border-box;
+            border-radius: 1.3rem;
+            /* background-color: #ddd; */
+            width: 100%;
+            border: 1px solid black;
+            /* box-shadow: 0 0 10px rgba(255, 255, 255, 0.5) */
+        }
+        .item a {
+            height: 100%;
+            gap: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .item .game-img {
+            width: 100%;
+            /* border: 1px solid; */
+            max-width: 300px;
+        }
+        .item .game-img img {
+            width: 100%;
+            object-fit: cover;
+        }
+        @media(max-width:800px){
+            .container{
+                column-gap: 2rem;
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+    <body>
+        <h1>mini game town</h1>
+
+        <div class="container">
+            <div class="item">
+                <a href="https://snazzy-starlight-518bf7.netlify.app/">
+                    <div class="game-img"><img src="img/moongame.png" alt="" /></div>
+                    <div class="game-name">행성게임</div></a
+                >
+            </div>
+            <div class="item">
+                <a href="rspGame.html">
+                    <div class="game-img"><img src="./img/rsp.png" alt="" /></div>
+                    <div class="game-name">가위바위보</div></a
+                >
+            </div>
+            <div class="item">
+                <a href="textGame.html">
+                    <div class="game-img"><img src="./img/text-game.png" alt="" /></div>
+                    <div class="game-name">타자게임</div></a
+                >
+            </div>
+            <div class="item">
+                <a href="chosungGame.html">
+                    <div class="game-img"><img src="./img/chosungGame.png" alt="" /></div>
+                    <div class="game-name">초성게임</div></a
+                >
+            </div>
+        </div>
+    </body>
 </html>
