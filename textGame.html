@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <style>
+    body {
+      background-color: #333;
+    }
+    h1 {
+      color: #fff;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    .container {
+      background-color: #f0f0f0;
+      /* border: 1px solid red; */
+      width: 400px;
+      max-width: 90%;
+      padding: 2rem;
+      box-sizing: border-box;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      text-align: center;
+    }
+    .word {
+      background-color: #fff;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      padding: 1rem 3rem;
+      font-size: 2rem;
+      /* border: 1px solid #ddd; */
+      /* border-radius: 1rem; */
+    }
+    .input {
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.5rem;
+      box-sizing: border-box;
+      max-width: 90%;
+    }
+    .game-over {
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-color: #333;
+      color: #fff;
+      width: 100%;
+      height: 100%;
+      padding-top: 100px;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      line-height: 1rem;
+      gap: 2rem;
+      box-sizing: border-box;
+    }
+    .game-over button {
+      padding: 0.75rem 1.25rem;
+      background-color: #fff;
+      border: none;
+      border-radius: 2rem;
+      margin-top: 1rem;
+    }
+    .game-over h1 {
+      margin: 0;
+    }
+    .btn {
+      background-color: black;
+      color: #fff;
+      padding: 0.5em 2rem;
+    }
+    .total-score {
+      text-align: center;
+    }
+    .totalNum {
+      font-size: 5rem;
+      padding-top: 3rem;
+    }
+  </style>
+  <body>
+    <h1>TYPING GAME</h1>
+    <div class="container">
+      <div class="word">READY</div>
+      <input type="text" class="input" id="input" />
+      <div class="box">
+        <div class="time">TIME: <span class="timeNum">5</span>s</div>
+        <div class="score">SCORE: <span class="scoreNum">0</span>POINT</div>
+      </div>
+      <lable for="input" class="btn" onclick="gameStart()">START</lable>
+    </div>
+
+    <div class="game-over">
+      <h1>Game Over</h1>
+      <span class="total-score">
+        TOTAL SCORE
+        <div class="totalNum">0</div>
+      </span>
+      <button class="again" onclick="againClick()">Try Again?</button>
+    </div>
+  </body>
+  <script>
+    const arr = [
+      "tomato",
+      "papaya",
+      "lime",
+      "cherry",
+      "tangerine",
+      "apple",
+      "banana",
+      "mango",
+      "avocado",
+      "kiwi",
+      "blackberry",
+      "blueberry",
+      "coconut",
+      "grape",
+      "melon",
+      "orange",
+      "peach",
+    ];
+    const word = document.querySelector(".word");
+    const input = document.querySelector(".input");
+    const time = document.querySelector(".timeNum");
+    const scoreNum = document.querySelector(".scoreNum");
+    const totalNum = document.querySelector(".totalNum");
+    const gameOver = document.querySelector(".game-over");
+    const again = document.querySelector(".again");
+    const btn = document.querySelector(".btn");
+    let inputText;
+    let i = 0;
+    let randomIndex = randomNum();
+    let t = 5;
+    let score = 0;
+    let play;
+    let start = false;
+
+    input.addEventListener("keydown", () => enterkey(event));
+
+    function gameStart() {
+      word.textContent = arr[randomIndex];
+      input.focus();
+      input.value = null; //작성한 인풋값 업애기
+      play = setInterval(second, 1000);
+      btn.style.display = "none";
+      start = true;
+    }
+
+    function enterkey(event) {
+      // 엔터키가 눌렸을 때 & 시작상태일때
+      if (window.event.keyCode === 13 && start == true) {
+        console.log("enter");
+        inputText = input.value;
+        console.log(inputText);
+        clearInterval(play);
+        t = 5;
+        time.textContent = t;
+
+        //작성값과 정답 비교하기!
+        if (inputText === arr[randomIndex]) {
+          score++;
+          scoreNum.textContent = score;
+          console.log("score:", score, "i:", i);
+        }
+
+        i++; //나온 문제의 개수 카운팅
+        
+        randomIndex = randomNum(); //다음 랜덤 단어 생성
+        gameStart(); //다음 문제 시작
+
+        //문제가 5개 나오면, 게임 오버
+        if (i == 5) {
+          totalNum.textContent = score;
+          clearInterval(play);
+          gameOver.style.display = "flex";
+          start = false;
+        }
+      }
+    }
+
+    function randomNum() {
+      //단어 인덱스 랜덤 생성
+      return Math.floor(Math.random() * arr.length);
+    }
+
+    function againClick() {
+      //game over 화면시, 다시 게임 시작하기
+      location.reload(true);
+    }
+
+    function second() {
+      //5초부터 타이머!
+      t--;
+      console.log(t);
+      time.textContent = t;
+
+      //시간 초과시
+      if (t == 0) {
+        gameOver.style.display = "flex";
+        clearInterval(play);
+        start = false;
+      }
+    }
+  </script>
+</html>
